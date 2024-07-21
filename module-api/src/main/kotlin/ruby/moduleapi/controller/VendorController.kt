@@ -11,7 +11,7 @@ import ruby.moduledomainvendor.service.VendorService
 @RestController
 @RequestMapping("/vendors")
 class VendorController(
-    private val vendorService: VendorService,
+    private val vendorService: VendorService
 ) {
     private val logger = logger()
 

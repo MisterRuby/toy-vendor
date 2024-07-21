@@ -1,6 +1,6 @@
 dependencies {
     implementation(project(":module-core"))
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    api("org.springframework.boot:spring-boot-starter-data-jpa")        // rds 모듈을 의존하는 다른 모듈에 jpa 라이브러리 추가
     runtimeOnly("com.h2database:h2")
 }
 
