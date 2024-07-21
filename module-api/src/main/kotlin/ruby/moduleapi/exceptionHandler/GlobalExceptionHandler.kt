@@ -1,4 +1,4 @@
-package ruby.moduleapi
+package ruby.moduleapi.exceptionHandler
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

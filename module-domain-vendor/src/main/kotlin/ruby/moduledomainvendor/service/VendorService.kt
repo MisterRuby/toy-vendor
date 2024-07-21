@@ -6,29 +6,21 @@ import ruby.moduledomainvendor.exception.DuplicateVendorException
 import ruby.moduledomainvendor.request.VendorCreateRequest
 import ruby.moduledomainvendor.response.VendorResponse
 import ruby.modulerds.entity.Vendor
+import ruby.modulerds.entity.VendorRole
+import ruby.modulerds.entity.enbeddable.VendorRoleId
 import ruby.modulerds.repository.VendorRepository
+import ruby.modulerds.repository.VendorRoleRepository
 
 /**
  * 코틀린에서는 주생성자로 의존성을 @Autowired 없이 주입받을 수 있다.
  */
 @Service
 class VendorService(
-    private val vendorRepository: VendorRepository
+    private val vendorRepository: VendorRepository,
+    private val vendorRoleRepository: VendorRoleRepository
 ) {
-    private fun convertToResponse(vendor: Vendor): VendorResponse {
-        return VendorResponse(
-            id = vendor.id,
-            vendorNumber = vendor.vendorNumber,
-            vendorName = vendor.vendorName,
-            vendorStartDate = vendor.vendorStartDate,
-            representative = vendor.representative,
-            address = vendor.address,
-            roles = vendor.roles
-        )
-    }
-
     fun getAllVendors() : List<VendorResponse> {
-        return vendorRepository.findAll().map { convertToResponse(it) }
+        return vendorRepository.findAllWithRoles().map { convertToResponse(it) }
     }
 
     @Transactional
@@ -47,12 +39,27 @@ class VendorService(
             )
         )
 
-        // TODO - 벤더 역할을 저장
-        request.roles.forEach {  }
+        request.roles.forEach {
+            val vendorRoleId = VendorRoleId(saveVendor.id, it)
+            val vendorRole = VendorRole(vendorRoleId, saveVendor)
+            vendorRoleRepository.save(vendorRole)
+        }
 
-        // TODO - 마스터 사용자 정보 저장. 계정 역할을 마스터로 고정. 해당 계정은 변경 및 삭제 불가
+        // TODO - 마스터 사용자 정보 저장. 계정 역할을 마스터로 고정. 해당 계정은 변경 및 삭제 불가. 비밀번호는 단방향 암호화 적용.
 
         return convertToResponse(saveVendor)
+    }
+
+    private fun convertToResponse(vendor: Vendor): VendorResponse {
+        return VendorResponse(
+            id = vendor.id,
+            vendorNumber = vendor.vendorNumber,
+            vendorName = vendor.vendorName,
+            vendorStartDate = vendor.vendorStartDate,
+            representative = vendor.representative,
+            address = vendor.address,
+            roles = vendor.roles.map { it.id.role.name }
+        )
     }
 
     private fun checkDuplicateVendor(vendorNumber: String) : Boolean {
