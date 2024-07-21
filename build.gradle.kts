@@ -27,6 +27,9 @@ subprojects {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
+        // Logging
+        implementation("org.springframework.boot:spring-boot-starter-logging")
+
         // Lombok
         compileOnly("org.projectlombok:lombok")
         annotationProcessor("org.projectlombok:lombok")
@@ -37,14 +40,14 @@ subprojects {
     }
 
     tasks.withType<JavaCompile> {
-        sourceCompatibility = "17"
-        targetCompatibility = "17"
+        sourceCompatibility = "19"
+        targetCompatibility = "19"
     }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         kotlinOptions {
             freeCompilerArgs += "-Xjsr305=strict"
-            jvmTarget = "17"
+            jvmTarget = "19"
         }
     }
 
