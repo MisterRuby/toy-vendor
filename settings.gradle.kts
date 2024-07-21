@@ -3,5 +3,6 @@ include(
     "module-core",
     "module-rds",
     "module-domain-vendor",
-    "module-api"
+    "module-api",
+    "module-vendor-lookup"
 )

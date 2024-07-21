@@ -6,11 +6,14 @@ import ruby.moduleapi.logger
 import ruby.moduledomainvendor.request.VendorCreateRequest
 import ruby.moduledomainvendor.response.VendorResponse
 import ruby.moduledomainvendor.service.VendorService
+import ruby.modulevendorlookup.request.VendorLookup
+import ruby.modulevendorlookup.service.VendorLookupService
 
 @RestController
 @RequestMapping("/vendors")
 class VendorController(
-    private val vendorService: VendorService
+    private val vendorService: VendorService,
+    private val vendorLookupService: VendorLookupService
 ) {
     private val logger = logger()
 
@@ -23,6 +26,22 @@ class VendorController(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun createVendor(@RequestBody request: VendorCreateRequest) {
-        vendorService.createVendor(request)
+        val vendorLookup = convertToVendorLookup(request)
+
+        val validate = vendorLookupService.validateVendorLookup(vendorLookup)
+
+        if (validate) {
+            vendorService.createVendor(request)
+        } else {
+            throw RuntimeException("Validate Fail!")
+        }
+    }
+
+    private fun convertToVendorLookup(request: VendorCreateRequest): VendorLookup {
+        return VendorLookup(
+            b_no = request.vendorNumber,
+            start_dt = request.vendorStartDate,
+            p_nm = request.representative,
+        )
     }
 }
