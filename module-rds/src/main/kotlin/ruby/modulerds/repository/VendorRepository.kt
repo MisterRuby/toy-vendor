@@ -5,4 +5,6 @@ import org.springframework.stereotype.Repository
 import ruby.modulerds.entity.Vendor
 
 @Repository
-interface VendorRepository : JpaRepository<Vendor, Long>
+interface VendorRepository : JpaRepository<Vendor, Long> {
+    fun findByVendorNumber(vendorNumber: String): Vendor?
+}

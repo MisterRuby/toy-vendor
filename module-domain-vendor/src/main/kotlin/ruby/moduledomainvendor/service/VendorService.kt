@@ -2,6 +2,7 @@ package ruby.moduledomainvendor.service
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import ruby.moduledomainvendor.exception.DuplicateVendorException
 import ruby.moduledomainvendor.request.VendorCreateRequest
 import ruby.moduledomainvendor.response.VendorResponse
 import ruby.modulerds.entity.Vendor
@@ -32,7 +33,9 @@ class VendorService(
 
     @Transactional
     fun createVendor(request: VendorCreateRequest) : VendorResponse {
-        // TODO - 저장 전에 중복되지 않아야 한다.
+        if (checkDuplicateVendor(request.vendorNumber)) {
+            throw DuplicateVendorException()
+        }
 
         val saveVendor = vendorRepository.save(
             Vendor(
@@ -50,5 +53,9 @@ class VendorService(
         // TODO - 마스터 사용자 정보 저장. 계정 역할을 마스터로 고정. 해당 계정은 변경 및 삭제 불가
 
         return convertToResponse(saveVendor)
+    }
+
+    private fun checkDuplicateVendor(vendorNumber: String) : Boolean {
+        return vendorRepository.findByVendorNumber(vendorNumber) != null
     }
 }
