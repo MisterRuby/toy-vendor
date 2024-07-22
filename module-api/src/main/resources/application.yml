@@ -1,0 +1,5 @@
+vendor:
+  lookup:
+    url: https://api.odcloud.kr/api/nts-businessman/v1/valid
+    service-key: MOeHsEoeIibgvhAzCpjubmcTeTp2TZSR3eIRbtbLzPblmP6xfOFia5t/d6J8b/fD3tJv1TXPtzO2DFOD/NtokA==
+    return-type: json

@@ -27,6 +27,9 @@ subprojects {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
+        implementation("org.springframework.boot:spring-boot-starter-validation")
+        implementation("org.springframework.boot:spring-boot-configuration-processor")
+
         // Logging
         implementation("org.springframework.boot:spring-boot-starter-logging")
 
