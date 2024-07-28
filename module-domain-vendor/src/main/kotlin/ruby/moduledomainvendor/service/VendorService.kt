@@ -2,6 +2,7 @@ package ruby.moduledomainvendor.service
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import ruby.modulecore.code.VendorStatusCode
 import ruby.modulecore.code.VendorUserRoleCode
 import ruby.moduledomainvendor.exception.VendorDuplicateException
 import ruby.moduledomainvendor.exception.VendorVerificationException
@@ -47,7 +48,8 @@ class VendorService(
                 vendorName = request.vendorName,
                 vendorStartDate = request.vendorStartDate,
                 representative = request.representative,
-                address = request.address
+                address = request.address,
+                status = VendorStatusCode.READY
             )
         )
 

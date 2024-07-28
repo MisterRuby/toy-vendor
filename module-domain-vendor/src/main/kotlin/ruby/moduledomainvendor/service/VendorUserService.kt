@@ -22,7 +22,6 @@ class VendorUserService(
             throw VendorUserDuplicateException()
         }
 
-        // TODO - 비밀번호 단방향 암호화
         val saveVendorUser = vendorUserRepository.save(
             VendorUser(
                 userId = request.userId,
