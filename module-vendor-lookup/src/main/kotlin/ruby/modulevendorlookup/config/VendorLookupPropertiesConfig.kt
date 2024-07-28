@@ -8,7 +8,7 @@ import ruby.modulevendorlookup.service.VendorLookupService
 
 @Configuration
 @EnableConfigurationProperties(VendorLookupProperties::class)
-class VendorLookupConfig(
+class VendorLookupPropertiesConfig(
     private val vendorLookupProperties: VendorLookupProperties
 ) {
 

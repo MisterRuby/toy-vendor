@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 import ruby.modulevendorlookup.config.VendorLookupProperties
 import ruby.modulevendorlookup.request.VendorLookup
-import ruby.modulevendorlookup.request.VendorLookupRequest
 import ruby.modulevendorlookup.response.VendorLookupResponse
 
 @Service
@@ -17,17 +16,16 @@ class VendorLookupService(
 ) {
 
     fun validateVendorLookup(vendorLookup: VendorLookup): Boolean {
-        // TODO : 환경 변수로 분리
         val requestUrl = with(vendorLookupProperties) { "$url?&serviceKey=$serviceKey&returnType=$returnType" }
 
         val headers = HttpHeaders().apply {
             contentType = MediaType.APPLICATION_JSON
         }
 
-        val request = HttpEntity(VendorLookupRequest(mutableListOf(vendorLookup)), headers)
+        val request = HttpEntity(vendorLookup, headers)
 
         val response = restTemplate.postForEntity(requestUrl, request, VendorLookupResponse::class.java)
 
-        return response.body?.data?.get(0)?.valid == "01"
+        return response.body?.match_cnt == 1
     }
 }

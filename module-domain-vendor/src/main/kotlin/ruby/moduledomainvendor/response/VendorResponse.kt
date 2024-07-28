@@ -7,5 +7,5 @@ data class VendorResponse(
     val vendorStartDate: String,        // 개업일자
     val representative: String,         // 대표자 성명
     val address: String,                // 회사 주소
-    val roles: List<String>,        // 사업자 역할
+    val roles: List<String>,            // 사업자 역할
 )

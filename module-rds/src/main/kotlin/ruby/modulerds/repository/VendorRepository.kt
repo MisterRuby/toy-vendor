@@ -7,7 +7,7 @@ import ruby.modulerds.entity.Vendor
 
 @Repository
 interface VendorRepository : JpaRepository<Vendor, Long> {
-    fun findByVendorNumber(vendorNumber: String): Vendor?
+    fun existsByVendorNumber(vendorNumber: String): Boolean
 
     @Query("SELECT v FROM Vendor v JOIN FETCH v.roles")
     fun findAllWithRoles(): List<Vendor>

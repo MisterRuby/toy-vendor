@@ -24,6 +24,9 @@ class Vendor(
     @Column(nullable = false)
     val address: String,                // 회사 주소
 
-    @OneToMany(mappedBy = "vendor", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    val roles: List<VendorRole> = mutableListOf()
+    @OneToMany(mappedBy = "vendor", fetch = FetchType.LAZY)
+    val roles: List<VendorRole> = mutableListOf(),
+
+    @OneToMany(mappedBy = "vendor", fetch = FetchType.LAZY)
+    val users: List<VendorUser> = mutableListOf()
 ) : Auditable()
