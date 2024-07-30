@@ -13,5 +13,5 @@ data class VendorCreateRequest(
 
     val masterUsername: String,         // 마스터 사용자 성명
     val masterUserId: String,           // 마스터 사용자 id
-    val masterPassword: String,         // 마스터 사용자 비밀번호
+    var masterPassword: String,         // 마스터 사용자 비밀번호
 )

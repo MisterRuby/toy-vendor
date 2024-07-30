@@ -16,7 +16,7 @@ class VendorLookupService(
 ) {
 
     fun validateVendorLookup(vendorLookup: VendorLookup): Boolean {
-        val requestUrl = with(vendorLookupProperties) { "$url?&serviceKey=$serviceKey&returnType=$returnType" }
+        val requestUrl = with(vendorLookupProperties) { "$url?&serviceKey=$serviceKey" }
 
         val headers = HttpHeaders().apply {
             contentType = MediaType.APPLICATION_JSON

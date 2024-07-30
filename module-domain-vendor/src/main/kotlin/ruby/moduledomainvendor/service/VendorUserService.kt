@@ -1,5 +1,6 @@
 package ruby.moduledomainvendor.service
 
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import ruby.moduledomainvendor.exception.VendorUserDuplicateException
@@ -13,7 +14,8 @@ import ruby.modulerds.repository.VendorUserRoleRepository
 @Service
 class VendorUserService(
     private val vendorUserRepository: VendorUserRepository,
-    private val vendorUserRoleRepository: VendorUserRoleRepository
+    private val vendorUserRoleRepository: VendorUserRoleRepository,
+    private val passwordEncoder: PasswordEncoder
 ) {
 
     @Transactional
@@ -26,7 +28,7 @@ class VendorUserService(
             VendorUser(
                 userId = request.userId,
                 username = request.username,
-                password = request.password,
+                password = passwordEncoder.encode(request.password),
                 vendor = request.vendor
             )
         )
