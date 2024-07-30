@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb     # in-memory 주소 설정
+    url: jdbc:h2:mem:testdb     # in-memory 주소 설정. http://localhost:8080/h2-console 에서 db 조회 가능
     username: sa                # 기본 계정명 password 를 추가하지 않는다면 기본적으로 없음으로 구동한다.
     driver-class-name: org.h2.Driver
   h2:
@@ -20,5 +20,5 @@ spring:
 vendor:
   lookup:
     url: https://api.odcloud.kr/api/nts-businessman/v1/status
-    service-key: ## https://www.data.go.kr/data/15081808/openapi.do 에서 발급받아 사용
+    service-key: service-key    # https://www.data.go.kr/data/15081808/openapi.do 에서 발급받아 사용
     return-type: json
