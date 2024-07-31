@@ -1,5 +1,6 @@
 package ruby.moduledomainvendor
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
@@ -15,6 +16,7 @@ import ruby.modulevendorlookup.VendorLookupConfig
 class DomainVendorConfig {
 
     @Bean
+    @ConditionalOnMissingBean(PasswordEncoder::class)
     fun passwordEncoder(): PasswordEncoder {
         return BCryptPasswordEncoder()
     }
